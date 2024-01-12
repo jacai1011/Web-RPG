@@ -21,4 +21,17 @@ body {
 button {
     background: linear-gradient(to bottom, #DEC20B, #DE970B);
     border: 2px solid #DE970B;
+    margin: 5px
+}
+
+#stats {
+    border: 1px solid black;
+}
+
+#controls {
+    border: 1px solid black;
+}
+
+#monsterStats {
+    display: none;
 }
