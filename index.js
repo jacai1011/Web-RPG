@@ -2,6 +2,7 @@ let xp = 0;
 let health = 100;
 let gold = 50;
 let currentWeapon = 0;
+let slimeHealth = 15;
 
 
 const button1 = document.querySelector('#button1');
@@ -27,7 +28,7 @@ function healthUp() {
 }
 
 function weaponUp() {
-    if (parseInt(goldText.innerText) <= 30) {
+    if (parseInt(goldText.innerText) < 30) {
         return;
     }
     goldText.innerText = parseInt(goldText.innerText) - 30;
@@ -66,7 +67,15 @@ function goCave() {
 }
 
 function fightDragon() {
-    console.log("fight dragon")
+    button1.innerText = "Attack";
+    button2.innerText = "Dodge";
+    button3.innerText = "Run";
+    text.innerText = "You are fighting a monster.";
+    button3.onclick = goTown;
+    document.getElementById("monsterStats").style.display="block";
+}
+
+function fightSlime() {
     button1.innerText = "Attack";
     button2.innerText = "Dodge";
     button3.innerText = "Run";
