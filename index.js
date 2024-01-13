@@ -197,10 +197,10 @@ function fightDragon() {
     text.innerText = "You are fighting a monster.";
     button1.onclick = function() {
         atkMon(dragonDmg, dragonHealth, 0, 0);
-    };
+    }
     button2.onclick = function() {
         dodge("dragon");
-    };
+    }
     button3.onclick = goTown;
     monsterStats.style.display="block";
     monsterHealth.innerText = dragonHealth;
@@ -214,10 +214,10 @@ function fightSlime() {
     text.innerText = "You are fighting a monster.";
     button1.onclick = function() {
         atkMon(slimeAtkDmg, slimeHealth, slimeXP, slimeGold);
-    };
+    }
     button2.onclick = function() {
         dodge("slime");
-    };;
+    }
     button3.onclick = goTown;
     monsterStats.style.display="block";
     monsterHealth.innerText = slimeHealth;
@@ -231,10 +231,10 @@ function fightFb() {
     text.innerText = "You are fighting a monster.";
     button1.onclick = function() {
         atkMon(fbAtkDmg, fbHealth, fbXP, fbGold);
-    };
+    }
     button2.onclick = function() {
         dodge("fanged beast");
-    };;
+    }
     button3.onclick = goTown;
     monsterStats.style.display="block";
     monsterHealth.innerText = fbHealth;
