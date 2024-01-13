@@ -18,6 +18,11 @@ const monsterName = document.querySelector('#monsterName');
 const monsterHealth = document.querySelector('#monsterHealth');
 const slimeAtkDmg = 10;
 const fbAtkDmg = 40;
+const dragonDmg = 100;
+const slimeXP = 2;
+const slimeGold = 13;
+const fbXP = 5;
+const fbGold = 26;
 
 button1.onclick = goStore;
 button2.onclick = goCave;
@@ -44,10 +49,15 @@ function weaponUp() {
     gold -= 30;
     goldText.innerText = gold;
     currentWeapon += 1;
-    console.log(currentWeapon);
+    if (currentWeapon == 1) {
+        text.innerText = "You have purchased a broadsword. Your offensive capabilities have increased.";
+    }
+    if (currentWeapon == 2) {
+        text.innerText = "You have purchased a spear. Your offensive capabilities have further increased."
+    }
 }
 
-function randomIntFromInterval(min, max) { // min and max included 
+function randomIntFromInterval(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
@@ -56,10 +66,10 @@ function atkDmg() {
         return randomIntFromInterval(1, 10);
     }
     if (currentWeapon == 1) {
-        return randomIntFromInterval(5, 15);
+        return randomIntFromInterval(10, 20);
     }
     if (currentWeapon == 2) {
-        return randomIntFromInterval(10, 20);
+        return randomIntFromInterval(20, 30);
     }
 }
 
@@ -85,6 +95,7 @@ function goDeathScreen() {
     xp = 0;
     slimeHealth = 15;
     fbHealth = 60;
+    dragonHealth = 300;
     button1.innerText = "REPLAY?";
     button2.innerText = "REPLAY?";
     button3.innerText = "REPLAY?";
@@ -93,11 +104,37 @@ function goDeathScreen() {
     button3.onclick = goTown;
 }
 
-function atkMon(monDmg, monHealth) {
+function goWinScreen() {
+    monsterStats.style.display="none";
+    text.innerText = "You Win!!!."
+    currentWeapon = 0;
+    health = 100;
+    gold = 50;
+    xp = 0;
+    slimeHealth = 15;
+    fbHealth = 60;
+    dragonHealth = 300;
+    button1.innerText = "REPLAY?";
+    button2.innerText = "REPLAY?";
+    button3.innerText = "REPLAY?";
+    button1.onclick = goTown;
+    button2.onclick = goTown;
+    button3.onclick = goTown;
+}
+
+function atkMon(monDmg, monHealth, monXP, monGold) {
     var damage = atkDmg();
+
+    if (randomIntFromInterval(1,4) == 1) {
+        damage = 0;
+        text.innerText = "Your weapon breaks!"
+    }
     if (damage >= monHealth) {
-        xp += 2;
-        gold += 13;
+        if (monDmg == 100) {
+            goWinScreen();
+        }
+        xp += monXP;
+        gold += monGold;
         slimeHealth = 15;
         fbHealth = 60;
         goKillScreen();
@@ -115,8 +152,8 @@ function atkMon(monDmg, monHealth) {
     fbHealth = monHealth;
 }
 
-function dodge() {
-    text.innerText = "You dodge the attack.";
+function dodge(monster) {
+    text.innerText = "You dodge the attack of the " + monster + ".";
 }
 
 function goTown() {
@@ -158,6 +195,12 @@ function fightDragon() {
     button2.innerText = "Dodge";
     button3.innerText = "Run";
     text.innerText = "You are fighting a monster.";
+    button1.onclick = function() {
+        atkMon(dragonDmg, dragonHealth, 0, 0);
+    };
+    button2.onclick = function() {
+        dodge("dragon");
+    };
     button3.onclick = goTown;
     monsterStats.style.display="block";
     monsterHealth.innerText = dragonHealth;
@@ -170,9 +213,11 @@ function fightSlime() {
     button3.innerText = "Run";
     text.innerText = "You are fighting a monster.";
     button1.onclick = function() {
-        atkMon(slimeAtkDmg, slimeHealth);
+        atkMon(slimeAtkDmg, slimeHealth, slimeXP, slimeGold);
     };
-    button2.onclick = dodge;
+    button2.onclick = function() {
+        dodge("slime");
+    };;
     button3.onclick = goTown;
     monsterStats.style.display="block";
     monsterHealth.innerText = slimeHealth;
@@ -185,9 +230,11 @@ function fightFb() {
     button3.innerText = "Run";
     text.innerText = "You are fighting a monster.";
     button1.onclick = function() {
-        atkMon(fbAtkDmg, fbHealth);
+        atkMon(fbAtkDmg, fbHealth, fbXP, fbGold);
     };
-    button2.onclick = dodge;
+    button2.onclick = function() {
+        dodge("fanged beast");
+    };;
     button3.onclick = goTown;
     monsterStats.style.display="block";
     monsterHealth.innerText = fbHealth;
