@@ -34,4 +34,7 @@ button {
 
 #monsterStats {
     display: none;
+    background-color: red;
+    padding: 5px;
+    color: white;
 }
