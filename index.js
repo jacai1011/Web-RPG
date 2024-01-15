@@ -148,8 +148,15 @@ function atkMon(monDmg, monHealth, monXP, monGold) {
         monHealth -= damage;
         monsterHealth.innerText = monHealth;
     }
-    slimeHealth = monHealth;
-    fbHealth = monHealth;
+    if (monDmg == slimeAtkDmg) {
+        slimeHealth = monHealth;
+    }
+    else if (monDmg == fbAtkDmg) {
+        fbHealth = monHealth;
+    }
+    else {
+        dragonHealth = monHealth;
+    }
 }
 
 function dodge(monster) {
